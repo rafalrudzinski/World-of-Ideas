@@ -16,13 +16,16 @@ document.getElementById('sendBtn').onclick = function() {
     var title = document.getElementById('title').value;
     var conclusion = document.getElementById('conclusion').value;
     
-    fetch('/arguments', {
+    var url = '/arguments';
+    var data = { title: title, premises: premiseEnvelope, conclusion: conclusion };
+
+    fetch(url, {
         method: 'POST',
-        body: JSON.stringify({
-            title: title,
-            premises: premiseEnvelope,
-            conclusion: conclusion
-        }),
-        headers: { "Content-Type": "application/json" }
-    })
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => console.log('Success:', response));
 }
