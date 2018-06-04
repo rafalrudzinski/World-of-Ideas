@@ -1,5 +1,4 @@
 var express = require('express');
-var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 
 const app = express();
@@ -7,7 +6,9 @@ const port = 3000;
 var db;
 
 app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
@@ -25,7 +26,7 @@ app.post('/arguments', (req, res) => {
         conclusion: req.body.conclusion
     });
 
-    res.redirect('/');
+    res.redirect(req.originalUrl);
 });
 
 MongoClient.connect('mongodb://localhost:27017/arguments', (err, client) => {
