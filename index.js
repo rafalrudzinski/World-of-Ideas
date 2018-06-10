@@ -12,11 +12,19 @@ app.use(express.json());
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
+    res.render("index");
+});
+
+app.get('/workbench', (req, res) => {
     db.collection('arguments').find().toArray((err, result) => {
         if (err) return console.log(err);
 
-        res.render("index", { arguments: result });
+        res.render("workbench", { arguments: result });
     });
+});
+
+app.get('/profile', (req, res) => {
+    res.render("profile");
 });
 
 app.post('/arguments', (req, res) => {

@@ -2,3 +2,14 @@
     overflow-y: scroll;
     height: 400px;
 }
+
+.edit-premise {
+    float: right;
+    color: #ffffff;
+    background-color: white;
+}
+
+.disposeBtn {
+    background-color: white;
+    font-size: 35px;
+}
