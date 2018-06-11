@@ -37,6 +37,12 @@ app.post('/arguments', (req, res) => {
     res.redirect(req.originalUrl);
 });
 
+app.delete('/arguments', (req, res) => {
+    db.collection('arguments').remove({ _id: req.body.id.toString() });
+
+    res.redirect('/');
+});
+
 MongoClient.connect('mongodb://localhost:27017/arguments', (err, client) => {
     if (err) return console.log(err);
 

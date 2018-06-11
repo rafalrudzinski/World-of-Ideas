@@ -59,11 +59,10 @@
                                             <button class="btn btn-success edit-premise"><i class="typcn typcn-pencil"></i></button>
                                         </div>
                                     </div>
+                                    <br />
                                 <% } %>
 
-                                <br />
-
-                                <div class="card">
+                                <div class="card border-success">
                                     <div class="card-body">
                                         <b>Conclusion:</b> <%= arguments[i].conclusion %>
                                         <button class="btn btn-success edit-premise"><i class="typcn typcn-pencil"></i></button>
@@ -71,9 +70,10 @@
                                 </div>
                                 <hr />
 
-                                <button class="btn btn-danger disposeBtn"><i class="typcn typcn-trash" style="color: white"></i></button>
+                                <button class="btn btn-danger disposeBtn" onclick="deleteArgument(<%= arguments[i]._id %>)"><i class="typcn typcn-trash" style="color: white"></i></button>
                             </div>
-                        </div><br />
+                        </div>
+                        <br />
                     <% } %>
                 </div>
             </div>
