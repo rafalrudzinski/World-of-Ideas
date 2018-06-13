@@ -22,7 +22,7 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <h2>New Argument</h2>
 
                     <form>
@@ -43,7 +43,7 @@
                     </form>
                 </div>
 
-                <div class="col-md-6" id="allArguments">
+                <div class="col-md-9" id="allArguments">
                     <h2>Arguments</h2>
 
                     <% for (var i = 0; i < arguments.length; i++) { %>
@@ -53,10 +53,19 @@
                                 <hr />
 
                                 <% for (var j = 0; j < arguments[i].premises.length; j++) { %>
-                                    <div class="card">
+                                    <div class="card border-primary">
                                         <div class="card-body">
-                                            <b>Premise <%= j + 1 %></b>: <%= arguments[i].premises[j] %>
-                                            <button class="btn btn-success edit-premise"><i class="typcn typcn-pencil"></i></button>
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <b>Premise <%= j + 1 %></b>: <%= arguments[i].premises[j] %>
+                                                </div>
+                                                
+                                                <div class="col-md-2">
+                                                    <button class="btn btn-success edit-premise"><i class="typcn typcn-pencil"></i></button>
+
+                                                    <button class="btn btn-danger disposeBtn" onclick="deleteArgument(<%= arguments[i]._id %>)"><i class="typcn typcn-trash" style="color: white"></i></button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <br />
@@ -64,8 +73,24 @@
 
                                 <div class="card border-success">
                                     <div class="card-body">
-                                        <b>Conclusion:</b> <%= arguments[i].conclusion %>
-                                        <button class="btn btn-success edit-premise"><i class="typcn typcn-pencil"></i></button>
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <b>Conclusion:</b> <%= arguments[i].conclusion %>
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <button class="btn btn-danger disposeBtn" onclick="deleteArgument(<%= arguments[i]._id %>)"><i class="typcn typcn-trash" style="color: white"></i></button>
+
+                                                <button class="btn btn-success edit-premise"><i class="typcn typcn-pencil"></i></button>
+                                            </div>
+                                        </div>
+
+                                        
+
+
+
+                                        
+                                        
                                     </div>
                                 </div>
                                 <hr />

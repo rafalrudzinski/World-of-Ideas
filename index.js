@@ -38,7 +38,7 @@ app.post('/arguments', (req, res) => {
 });
 
 app.delete('/arguments', (req, res) => {
-    db.collection('arguments').remove({ _id: req.body.id.toString() });
+    db.collection('arguments').remove({ _id: new mongodb.ObjectID(id) });
 
     res.redirect('/');
 });

@@ -49,6 +49,6 @@ function deleteArgument(id) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: id
+        body: { id: id }
     });
 }
