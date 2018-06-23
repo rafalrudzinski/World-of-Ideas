@@ -1,26 +1,36 @@
 var express = require('express');
-var MongoClient = require('mongodb').MongoClient;
+var Mongoose = require('mongoose');
+var methodOverride = require('method-override');
+
+var Argument = require('./models/argument');
+
+Mongoose.connect('mongodb://localhost/arguments');
+var db = Mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+    console.log("Database connected");
+});
 
 const app = express();
 const port = 3000;
-var db;
 
 app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(__dirname + '/public'));
+app.use(methodOverride('_method'));
 
 app.get('/', (req, res) => {
     res.render("index");
 });
 
 app.get('/workbench', (req, res) => {
-    db.collection('arguments').find().toArray((err, result) => {
-        if (err) return console.log(err);
+    Argument.find({}, function (err, result) {
+        if (err) console.log(err);
 
         res.render("workbench", { arguments: result });
-    });
+    });    
 });
 
 app.get('/profile', (req, res) => {
@@ -28,27 +38,23 @@ app.get('/profile', (req, res) => {
 });
 
 app.post('/arguments', (req, res) => {
-    db.collection('arguments').save({
+    Argument.create({
         title: req.body.title,
         premises: req.body.premises,
         conclusion: req.body.conclusion
     });
 
-    res.redirect(req.originalUrl);
+    res.redirect('/workbench');
 });
 
-app.delete('/arguments', (req, res) => {
-    db.collection('arguments').remove({ _id: new mongodb.ObjectID(id) });
+app.delete('/arguments/:id', (req, res) => {
+    Argument.deleteOne({ _id: req.params.id }, function (err) {
+        if (err) console.log(err);
 
-    res.redirect('/');
-});
-
-MongoClient.connect('mongodb://localhost:27017/arguments', (err, client) => {
-    if (err) return console.log(err);
-
-    db = client.db('arguments');
-
-    app.listen(port, () => {
-        console.log("Server running on port " + port);
+        res.redirect('/workbench');
     });
+});
+
+app.listen(port, () => {
+    console.log("Server running on port " + port);
 });

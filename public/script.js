@@ -41,14 +41,3 @@ document.getElementById('sendBtn').onclick = function() {
 
     location.reload();
 }
-
-function deleteArgument(id) {
-    fetch('http://localhost:3000/arguments', {
-        method: "DELETE",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: { id: id }
-    });
-}

@@ -1,5 +1,5 @@
 # World of Ideas
 
-A an educational social network
+_A an educational social network_
 
 Remember to install project dependencies with npm or yarn!

@@ -63,7 +63,9 @@
                                                 <div class="col-md-2">
                                                     <button class="btn btn-success edit-premise"><i class="typcn typcn-pencil"></i></button>
 
-                                                    <button class="btn btn-danger disposeBtn" onclick="deleteArgument(<%= arguments[i]._id %>)"><i class="typcn typcn-trash" style="color: white"></i></button>
+                                                    <form action="/delete/<%= arguments[i]._id %>?_method=DELETE" method="POST">
+                                                        <button type="submit" class="btn btn-danger disposeBtn"><i class="typcn typcn-trash" style="color: white"></i></button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -79,23 +81,18 @@
                                             </div>
 
                                             <div class="col-md-2">
-                                                <button class="btn btn-danger disposeBtn" onclick="deleteArgument(<%= arguments[i]._id %>)"><i class="typcn typcn-trash" style="color: white"></i></button>
+                                                <button class="btn btn-danger disposeBtn"><i class="typcn typcn-trash" style="color: white"></i></button>
 
                                                 <button class="btn btn-success edit-premise"><i class="typcn typcn-pencil"></i></button>
                                             </div>
                                         </div>
-
-                                        
-
-
-
-                                        
-                                        
                                     </div>
                                 </div>
                                 <hr />
 
-                                <button class="btn btn-danger disposeBtn" onclick="deleteArgument(<%= arguments[i]._id %>)"><i class="typcn typcn-trash" style="color: white"></i></button>
+                                <form action="/arguments/<%= arguments[i]._id %>?_method=DELETE" method="POST">
+                                    <button type="submit" class="btn btn-danger disposeBtn"><i class="typcn typcn-trash" style="color: white"></i></button>
+                                </form>
                             </div>
                         </div>
                         <br />
