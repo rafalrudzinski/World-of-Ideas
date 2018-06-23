@@ -1,5 +1,6 @@
 # World of Ideas
 
-_A an educational social network_
+_An educational social network_
 
-Remember to install project dependencies with npm or yarn!
+**Install dependencies with npm or yarn**
+**Create and run mongodb database on default port**
