@@ -3,14 +3,11 @@
     height: 400px;
 }
 
-.edit-premise {
-    float: right;
-    color: #ffffff;
-    background-color: white;
-    font-size: 35px;
+.edit {
+    display: inline;
 }
 
-.disposeBtn {
-    background-color: white;
-    font-size: 35px;
+.argument-card {
+    width: 60%;
+    margin: auto;
 }

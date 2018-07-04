@@ -1,115 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
+<% include ./partials/header %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Argument Workbench</title>
+<!--Header-->
+<div class="container">
+    <div class="jumbotron">
+        <h1>Argument Workbench</h1>
+    </div>
 
-    <link rel="stylesheet" href="/style.css" type="text/css">
-    
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.css" crossorigin="anonymous">
-</head>
-
-<body>
     <div class="container">
-        <div class="jumbotron">
-            <h1>Argument Workbench</h1>
-        </div>
+        <div class="row">
+            <!--New argument form-->
+            <div class="col-md-4">
+                <h2>New Argument</h2>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <h2>New Argument</h2>
+                <form>
+                    <div class="form-group">
+                        <input type="text" id="title" class="form-control" placeholder="Argument Title">
+                    </div>
+                    <div class="form-group">
+                        <textarea rows="2" id="newPremise" name="premise" class="form-control" placeholder="Premise"></textarea>
+                    </div>
+                    <button type="button" id="addBtn" class="btn btn-success">Add premise</button>
+                    <ul id="premises">
+                        <!--Premises added programmatically-->
+                    </ul>
+                    <div class="form-group">
+                        <textarea type="text" id="conclusion" class="form-control" placeholder="Conclusion"></textarea>
+                    </div>
+                    <button id="sendBtn" type="button" class="btn btn-success">Submit</button>
+                </form>
+            </div>
 
-                    <form>
-                        <div class="form-group">
-                            <input type="text" id="title" class="form-control" placeholder="Argument Title">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="newPremise" name="premise" class="form-control" placeholder="Premise">
-                        </div>
-                        <button type="button" id="addBtn" class="btn btn-success">Add premise</button>
-                        <ul id="premises">
-                            <!--Premises added programmatically-->
-                        </ul>
-                        <div class="form-group">
-                            <input type="text" id="conclusion" class="form-control" placeholder="Conclusion">
-                        </div>
-                        <button id="sendBtn" type="button" class="btn btn-success">Submit</button>
-                    </form>
-                </div>
+            <!--Existing arguments list-->
+            <div class="col-md-8" id="allArguments">
+                <h2>Arguments</h2>
 
-                <div class="col-md-9" id="allArguments">
-                    <h2>Arguments</h2>
+                <% for (var i = 0; i < arguments.length; i++) { %>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="argumentTitle"><%= arguments[i].title %></h3>
+                            <hr />
 
-                    <% for (var i = 0; i < arguments.length; i++) { %>
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="argumentTitle"><%= arguments[i].title %></h3>
-                                <hr />
-
-                                <% for (var j = 0; j < arguments[i].premises.length; j++) { %>
-                                    <div class="card border-primary">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-10">
-                                                    <b>Premise <%= j + 1 %></b>: <%= arguments[i].premises[j] %>
-                                                </div>
-                                                
-                                                <div class="col-md-2">
-                                                    <button class="btn btn-success edit-premise"><i class="typcn typcn-pencil"></i></button>
-
-                                                    <form action="/delete/<%= arguments[i]._id %>?_method=DELETE" method="POST">
-                                                        <button type="submit" class="btn btn-danger disposeBtn"><i class="typcn typcn-trash" style="color: white"></i></button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br />
-                                <% } %>
-
-                                <div class="card border-success">
+                            <!--Premise-->
+                            <% for (var j = 0; j < arguments[i].premises.length; j++) { %>
+                                <div class="card border-primary">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-md-10">
-                                                <b>Conclusion:</b> <%= arguments[i].conclusion %>
-                                            </div>
-
-                                            <div class="col-md-2">
-                                                <button class="btn btn-danger disposeBtn"><i class="typcn typcn-trash" style="color: white"></i></button>
-
-                                                <button class="btn btn-success edit-premise"><i class="typcn typcn-pencil"></i></button>
+                                            <div class="col-md-12">
+                                                <b>Premise <%= j + 1 %></b>: <%= arguments[i].premises[j] %>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <hr />
+                                <br />
+                            <% } %>
 
-                                <form action="/arguments/<%= arguments[i]._id %>?_method=DELETE" method="POST">
-                                    <button type="submit" class="btn btn-danger disposeBtn"><i class="typcn typcn-trash" style="color: white"></i></button>
-                                </form>
+                            <!--Conclusion-->
+                            <div class="card border-success">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <b>Conclusion:</b> <%= arguments[i].conclusion %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+
+                            <!--Edit or delete argument-->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form action="/argument/<%= arguments[i]._id %>?_method=DELETE" method="POST" class="edit">
+                                        <button type="submit" class="btn btn-danger"><i class="typcn typcn-trash" style="color: white"></i></button>
+                                    </form>
+                                    <a href="/argument/<%= arguments[i]._id %>" class="btn btn-success"><i class="typcn typcn-pencil"></i></a>
+                                </div>
                             </div>
                         </div>
-                        <br />
-                    <% } %>
-                </div>
+                    </div>
+                    <br />
+                <% } %>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="/script.js"></script>
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-        crossorigin="anonymous"></script>
-</body>
-
-</html>
+<% include ./partials/footer %>

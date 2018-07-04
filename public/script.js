@@ -1,7 +1,10 @@
 var premises = document.getElementById('premises');
 var premiseEnvelope = [];
 
-document.getElementById('addBtn').onclick = function() {
+var addButton = document.getElementById('addBtn');
+var sendButton = document.getElementById('sendBtn');
+
+addButton.onclick = function() {
     var inputData = document.getElementById('newPremise').value;
     var premiseText = document.createTextNode(inputData);
     var newPremise = document.createElement("Li");
@@ -13,13 +16,13 @@ document.getElementById('addBtn').onclick = function() {
     document.getElementById('newPremise').value = "";
 }
 
-document.getElementById('sendBtn').onclick = function() {
+sendButton.onclick = function() {
     var title = document.getElementById('title').value;
     var conclusion = document.getElementById('conclusion').value;
 
     var data = { title: title, premises: premiseEnvelope, conclusion: conclusion };
 
-    fetch('http://localhost:3000/arguments', {
+    fetch('http://localhost:3000/argument', {
         method: "POST",
         headers: {
             'Accept': 'application/json',
@@ -27,17 +30,17 @@ document.getElementById('sendBtn').onclick = function() {
         },
         body: JSON.stringify(data)
     }).then((res) => {
-        console.log(res);
-    }).catch((err) => {
-        console.log(err)
+        document.getElementById('title').value = "";
+        document.getElementById('conclusion').value = "";
+
+        while (premises.firstChild) {
+            premises.removeChild(premises.firstChild);
+        }
+
+        location.reload();
     });
+}
 
-    document.getElementById('title').value = "";
-    document.getElementById('conclusion').value = "";
-
-    while (premises.firstChild) {
-        premises.removeChild(premises.firstChild);
-    }
-
-    location.reload();
+function editArgument(claimType, claim, action) {
+    //Code here
 }

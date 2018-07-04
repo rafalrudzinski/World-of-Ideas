@@ -1,0 +1,47 @@
+<% include ./partials/header %>
+
+<div class="card argument-card">
+    <div class="card-body">
+        <h3 class="argumentTitle"><%= argument.title %></h3>
+        <hr />
+
+        <!--Premise-->
+        <% for (var i = 0; i < argument.premises.length; i++) { %>
+            <div class="card border-primary">
+                <div class="card-body">
+                    <div class="row">
+                        <span class="col-md-11"><b>Premise <%= i + 1 %></b>: <%= argument.premises[i] %></span>
+                        <form action="/argument/<%= argument._id %>?_method=DELETE" method="POST" class="edit col-md-1">
+                            <button type="submit" class="btn btn-danger"><i class="typcn typcn-trash" style="color: white"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <br />
+        <% } %>
+
+        <!--Conclusion-->
+        <div class="card border-success">
+            <div class="card-body">
+                <div class="row">
+                    <span class="col-md-11"><b>Conclusion:</b> <%= argument.conclusion %></span>
+                    <form action="/argument/<%= argument._id %>?_method=DELETE" method="POST" class="edit col-md-1">
+                        <button type="submit" class="btn btn-danger"><i class="typcn typcn-trash" style="color: white"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr />
+
+        <!--Delete argument-->
+        <div class="row">
+            <div class="col-md-12">
+                <form action="/argument/<%= argument._id %>?_method=DELETE" method="POST" class="edit">
+                    <button type="submit" class="btn btn-danger"><i class="typcn typcn-trash" style="color: white"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ./partials/footer %>
