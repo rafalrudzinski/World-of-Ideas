@@ -1,20 +1,24 @@
 //Require Node modules
+
 var express = require('express'),
     mongoose = require('mongoose'),
     methodOverride = require('method-override');
 
 //Require models
+
 var Argument = require('./models/argument');
 
 //Connect to database
+
 mongoose.connect('mongodb://localhost/arguments');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
+db.once('open', () => {
     console.log("Database connected");
 });
 
 //Basic app configuration
+
 const app = express();
 const port = 3000;
 app.set('view engine', 'ejs');
@@ -24,25 +28,26 @@ app.use(express.static(__dirname + '/public'));
 app.use(methodOverride('_method'));
 
 //Routes
+
 app.get('/', (req, res) => {
-    res.render("index");
+    res.render("index", { title: "World of Ideas" });
 });
 
 app.get('/workbench', (req, res) => {
     Argument.find({}, (err, result) => {
         if (err) console.log(err);
 
-        res.render("workbench", { arguments: result });
+        res.render("workbench", { arguments: result, title: "Argument Workbench" });
     });
 });
 
 app.get('/profile', (req, res) => {
-    res.render("profile");
+    res.render("profile", { title: "My Ideas" });
 });
 
 app.get('/argument/:id', (req, res) => {
     Argument.findOne({ _id: req.params.id }, (err, result) => {
-        res.render("argument", { argument: result });
+        res.render("argument", { argument: result, title: "Argument Workbench" });
     });
 });
 
@@ -73,6 +78,7 @@ app.delete('/argument/:id', (req, res) => {
 });
 
 //Start server
+
 app.listen(port, () => {
     console.log("Server running on port " + port);
 });
