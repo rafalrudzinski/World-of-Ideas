@@ -11,3 +11,7 @@
     width: 60%;
     margin: auto;
 }
+
+.deletePremise {
+    max-height: 40px;
+}

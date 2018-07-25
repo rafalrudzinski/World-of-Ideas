@@ -4,7 +4,7 @@
 
 <div class="card argument-card">
     <div class="card-body">
-        <h3 class="argumentTitle"><%= argument.title %></h3>
+        <b>Title:</b> <input type="text" class="form-control" value="<%= argument.title %>">
         <hr />
 
         <!--Premise-->
@@ -12,8 +12,16 @@
             <div class="card border-primary">
                 <div class="card-body">
                     <div class="row">
-                        <span class="col-md-11" contentEditable="true"><b>Premise <%= i + 1 %></b>: <%= argument.premises[i] %></span>
-                        <button type="submit" class="btn btn-danger"><i class="typcn typcn-trash" style="color: white"></i></button>
+                        <p class="col-md-11">
+                            <b>Premise <%= i + 1 %></b>:
+                        </p>
+                    </div>
+
+                    <div class="row">
+                        <p class="col-md-11">
+                            <textarea class="form-control"><%= argument.premises[i] %></textarea>
+                        </p>
+                        <button type="submit" class="btn btn-danger deletePremise"><i class="typcn typcn-trash" style="color: white"></i></button>
                     </div>
                 </div>
             </div>
@@ -24,8 +32,15 @@
         <div class="card border-success">
             <div class="card-body">
                 <div class="row">
-                    <span class="col-md-11" contentEditable="true"><b>Conclusion:</b> <%= argument.conclusion %></span>
-                    <button type="submit" class="btn btn-danger"><i class="typcn typcn-trash" style="color: white"></i></button>
+                    <p class="col-md-11">
+                        <b>Conclusion:</b>
+                    </p> 
+                </div>
+
+                <div class="row">
+                    <p class="col-md-12">
+                        <textarea class="form-control"><%= argument.conclusion %></textarea>
+                    </p>
                 </div>
             </div>
         </div>
@@ -37,36 +52,11 @@
                 <form action="/argument/<%= argument._id %>?_method=DELETE" method="POST" class="edit">
                     <button type="submit" class="btn btn-danger"><i class="typcn typcn-trash" style="color: white"></i></button>
                 </form>
+
+                <button class="btn btn-success"><i class="typcn typcn-tick" style="color: white"></i></button>
             </div>
         </div>
     </div>
 </div>
-
-<br />
-
-<!--Edit form-->
-
-<div class="col-md-4 argument-card">
-    <h2>New Argument</h2>
-
-    <form>
-        <div class="form-group">
-            <input type="text" id="title" class="form-control" placeholder="Argument Title">
-        </div>
-        <div class="form-group">
-            <textarea rows="2" id="newPremise" name="premise" class="form-control" placeholder="Premise"></textarea>
-        </div>
-        <button type="button" id="addBtn" class="btn btn-success">Add premise</button>
-        <ul id="premises">
-            <!--Premises added programmatically-->
-        </ul>
-        <div class="form-group">
-            <textarea type="text" id="conclusion" class="form-control" placeholder="Conclusion"></textarea>
-        </div>
-        <button id="sendBtn" type="button" class="btn btn-success">Submit</button>
-    </form>
-</div>
-
-<br />
 
 <% include ./partials/footer %>
